@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  player_turn: 1
+  actions: 1
+  treasure: 1
+  buys: 1
+  phase: MyString
+
+two:
+  player_turn: 1
+  actions: 1
+  treasure: 1
+  buys: 1
+  phase: MyString

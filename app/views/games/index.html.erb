@@ -1,0 +1,12 @@
+<% provide(:title, 'All Games') %>
+<h1>All Games</h1>
+
+<% if @games.nil? %>
+You are not in any games right now!
+<% else %>
+  <ul class="users">
+    <% @games.each do |game| %>
+      <%= render game %>
+    <% end %>
+  </ul>
+<% end %>

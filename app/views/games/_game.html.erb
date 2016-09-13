@@ -1,0 +1,5 @@
+<li>
+  Start Date: <%= game.created_at %></br>
+  <%= game.get_player_list %></br>
+  <%= link_to "Continue Game", user_game_path(id: game.id) %>
+</li>

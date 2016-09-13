@@ -21,8 +21,23 @@ Cardmapping.create!(name:  "Copper",
 	     treasure_amount: 1,
 	     cost: 0)
 
+Cardmapping.create!(name:  "Silver",
+             text: "Silver",
+             is_treasure: true,
+             treasure_amount: 2,
+             cost: 3)
+
+Cardmapping.create!(name:  "Gold",
+             text: "Gold",
+             is_treasure: true,
+             treasure_amount: 3,
+             cost: 6)
+
 Cardmapping.create!(name:  "Estate",
              text: "Estate",
              is_victory: true,
 	     victory_points: 1,
 	     cost: 2)
+
+
+
