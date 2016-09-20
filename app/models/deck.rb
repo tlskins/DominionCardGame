@@ -60,10 +60,8 @@ class Deck < ActiveRecord::Base
     end
   end
 
-    private
-
-    # Returns the order number of the card at the top of the deck or 0 if none
-    def get_top_order
-      card_relationships.maximum('card_order') || 0
-    end    
+  # Returns the order number of the card at the top of the deck or 0 if none
+  def get_top_order
+    card_relationships.maximum('card_order') || 0
+  end    
 end

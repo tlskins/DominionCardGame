@@ -3,29 +3,33 @@ require 'test_helper'
 class DeckTest < ActiveSupport::TestCase
 
   def setup
-    @Mapping_copper = cardmappings(:copper)
-    @Mapping_estate = cardmappings(:estate)
+    Rails.application.load_seed
+    @Mapping_copper = Cardmapping.find_by(name: 'Copper')
+    @Mapping_estate = Cardmapping.find_by(name: 'Estate')
     @Mapping_copper.save
     @Mapping_estate.save
-    @Card_copper = Card.new(cardmapping_id: @Mapping_copper.id)
-    @Card_estate = Card.new(cardmapping_id: @Mapping_estate.id)
-    @Card_copper2 = Card.new(cardmapping_id: @Mapping_copper.id)
-    @Card_estate2 = Card.new(cardmapping_id: @Mapping_estate.id)
-    @Deck_one = Deck.new
-    @Deck_two = Deck.new
+    @Deck_one = Deck.create
+    @Deck_two = Deck.create
+    @Card_copper = Card.new(cardlocation_id: Cardlocation.create(cardmapping_id: @Mapping_copper.id) )
+    @Card_estate = Card.new(cardlocation_id: Cardlocation.create(cardmapping_id: @Mapping_estate.id) )
+    @Card_copper2 = Card.new(cardlocation_id: Cardlocation.create(cardmapping_id: @Mapping_copper.id) )
+    @Card_estate2 = Card.new(cardlocation_id: Cardlocation.create(cardmapping_id: @Mapping_estate.id) )
+  end
+
+  test "Test Card Mapping Seeding" do
+    assert @Card_copper.save
+    assert @Card_estate.save
+    assert @Card_copper2.save
+    assert @Card_estate2.save
   end
 
   test "Add card to bottom of deck - two decks" do
     # Test when deck and cards are not saved to db
-    @Deck_one.add_card_to_bottom(@Card_copper)
-    assert_not @Card_copper.deck
 
     @Card_copper.save
     @Card_estate.save
     @Card_copper2.save
     @Card_estate2.save
-    @Deck_one.save
-    @Deck_two.save
 
     @Deck_one.add_card_to_bottom(@Card_copper)
     assert_equal @Deck_one.id, @Card_copper.deck
@@ -102,8 +106,6 @@ class DeckTest < ActiveSupport::TestCase
     @Card_copper2.save
     @Card_estate.save
     @Card_estate2.save
-    @Deck_one.save
-    @Deck_two.save
 
     @Deck_one.add_card_to_top(@Card_copper)
     @Deck_one.add_card_to_top(@Card_estate)
@@ -129,8 +131,6 @@ class DeckTest < ActiveSupport::TestCase
     @Card_copper2.save
     @Card_estate.save
     @Card_estate2.save
-    @Deck_one.save
-    @Deck_two.save
 
     @Deck_one.add_card_to_top(@Card_copper)
     @Deck_one.add_card_to_top(@Card_estate)
@@ -181,13 +181,8 @@ class DeckTest < ActiveSupport::TestCase
   end
 
   test "Add card to top of deck - one deck" do
-    # Test when deck and cards are not saved to db
-    @Deck_one.add_card_to_top(@Card_copper)
-    assert_not @Card_copper.deck 
-   
     @Card_copper.save
     @Card_estate.save
-    @Deck_one.save
 
     @Deck_one.add_card_to_top(@Card_copper)
     assert_equal @Card_copper.deck, @Deck_one.id
@@ -217,8 +212,6 @@ class DeckTest < ActiveSupport::TestCase
     @Card_copper2.save
     @Card_estate.save
     @Card_estate2.save
-    @Deck_one.save
-    @Deck_two.save
 
     @Deck_one.add_card_to_top(@Card_copper)
     @Deck_one.add_card_to_top(@Card_estate)

@@ -1,9 +1,9 @@
 class Player < ActiveRecord::Base
   belongs_to :game
   belongs_to :user
-  has_one :supply, class_name: "Deck", foreign_key: "game_id", dependent: :destroy
-  has_one :hand, class_name: "Deck", foreign_key: "game_id", dependent: :destroy
-  has_one :discard, class_name: "Deck", foreign_key: "game_id", dependent: :destroy
+  has_one :supply, -> { where "status = 'Supply'" }, class_name: 'Deck'
+  has_one :hand, -> { where "status = 'Hand'" }, class_name: 'Deck'
+  has_one :discard, -> { where "status = 'Discard'" }, class_name: 'Deck'
 
     def name
       self.user.name

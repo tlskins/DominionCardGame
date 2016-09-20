@@ -1,12 +1,12 @@
-User.create!(name:  "Example User",
-             email: "example@railstutorial.org",
+User.create!(name:  "testExample User",
+             email: "testexample@railstutorial.org",
              password:              "foobar",
              password_confirmation: "foobar",
 	     admin: true)
 
 99.times do |n|
   name  = Faker::Name.name
-  email = "example-#{n+1}@railstutorial.org"
+  email = "testexample-#{n+1}@railstutorial.org"
   password = "password"
   User.create!(name:  name,
                email: email,
@@ -39,5 +39,9 @@ Cardmapping.create!(name:  "Estate",
 	     victory_points: 1,
 	     cost: 2)
 
-
+Cardmapping.create!(name: "Village",
+	     text: "+1 Card & +2 Actions",
+	     is_action: true,
+	     cost: 3)
+             
 

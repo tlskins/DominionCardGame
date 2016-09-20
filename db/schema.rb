@@ -11,14 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160913222721) do
+ActiveRecord::Schema.define(version: 20160917222556) do
 
   create_table "cardlocations", force: :cascade do |t|
     t.integer  "card_id"
     t.integer  "deck_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
     t.integer  "card_order"
+    t.integer  "cardmapping_id"
   end
 
   add_index "cardlocations", ["card_id", "deck_id"], name: "index_cardlocations_on_card_id_and_deck_id", unique: true
@@ -43,14 +44,17 @@ ActiveRecord::Schema.define(version: 20160913222721) do
   add_index "cardmappings", ["name"], name: "index_cardmappings_on_name", unique: true
 
   create_table "cards", force: :cascade do |t|
-    t.integer  "cardmapping_id"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.integer  "cardlocation_id"
   end
 
   create_table "decks", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "player_id"
+    t.string   "status"
+    t.integer  "game_id"
   end
 
   create_table "gamemanagers", force: :cascade do |t|

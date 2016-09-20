@@ -1,6 +1,11 @@
 class Gamemanager < ActiveRecord::Base
   belongs_to :game
 
+
+  # Initialize objects and start a new game
+  def start_game
+  end
+
   # End current phase and move on to next
   def next_phase
     if phase == 'Preaction'
@@ -24,4 +29,19 @@ class Gamemanager < ActiveRecord::Base
     update_attributes(player_turn: game.players.find_by(turn_order: turn_sequence).id)
   end
 
+  # Plays the given card
+  def play_card(card)
+    self.send(card.cardmapping.name) if self.respond_to(card.cardmapping.name, true)
+  end
+
+  private
+
+    # Iniitialize all player and supply decks
+    def initialize_decks
+    end
+
+    # Village: +1 card / +2 actions
+    def village
+      puts 'Village called!'
+    end
 end

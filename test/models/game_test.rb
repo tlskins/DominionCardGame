@@ -3,6 +3,7 @@ require 'test_helper'
 class GameTest < ActiveSupport::TestCase
 
   def setup
+    Rails.application.load_seed
     @user1 = User.new(name: "Example User", email: "user@example.com",
                         password: "foobar", password_confirmation: "foobar")
     @user1.save
@@ -20,7 +21,7 @@ class GameTest < ActiveSupport::TestCase
     @user5.save
   end
 
-  test "Create game, get player list, and end game" do
+  test "Create game" do
     # Create a new game
     game = Game.create_game_for([@user1, @user2, @user3, @user4, @user5])
     game.save
@@ -34,6 +35,14 @@ class GameTest < ActiveSupport::TestCase
     # Check Gamemanager
     assert game.gamemanager
     assert_equal game.players.find_by(turn_order: 1).id.to_i, game.gamemanager.player_turn.to_i
+    # Initialize decks and cards
+    game.initialize_player_cards
+    assert @user1.players.find_by(game_id: game.id).supply
+    assert game.players.first.supply
+    assert_equal 10, @user1.players.find_by(game_id: game.id).supply.cards.size
+    assert @user1.players.find_by(game_id: game.id).supply.cards.first.order
+    # Testing assocation between Card and Cardmapping
+    #assert game.players.first.supply.cards.first.cardlocation.cardmapping.name
     # End game
     game.end_game
     assert_equal "Finished", game.status

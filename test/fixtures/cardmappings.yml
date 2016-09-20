@@ -1,42 +1,15 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-#one:
-#  name: MyString
-#  text: MyString
-#  is_action: false
-#  is_attack: false
-#  is_action: false
-#  is_reaction: false
-#  is_treasure: false
-#  is_victory: false
+#copper:
+#  name: Copper
+#  text: Copper
+#  is_treasure: true
 #  treasure_amount: 1
+#  cost: 0
+
+#estate:
+#  name: Estate
+#  text: Estate
+#  is_victory: true
 #  victory_points: 1
-#  cost: 1
-
-#two:
-#  name: MyString
-#  text: MyString
-#  is_action: false
-#  is_attack: false
-#  is_action: false
-#  is_reaction: false
-#  is_treasure: false
-#  is_victory: false
-#  treasure_amount: 1
-#  victory_points: 1
-#  cost: 1
-
-
-copper:
-  name: Copper
-  text: Copper
-  is_treasure: true
-  treasure_amount: 1
-  cost: 0
-
-estate:
-  name: Estate
-  text: Estate
-  is_victory: true
-  victory_points: 1
-  cost: 2
+#  cost: 2
