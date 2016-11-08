@@ -206,19 +206,118 @@ input {
 
 /* Cards */
 
-div.card {
+div.card, div.supply_card, div.card_treasure, div.card_action, div.card_victory {
   text-align: center;
   border-width: .2em;
   border-style: solid;
   border-color: #808080 #000000 #000000 #808080;
   border-radius: 1em;
   font-size: 9pt;
-  width: 7em;
-  height: 10em;
+  width: 8.7em;
+  height: 11em;
   padding: 1em;
-  /*display: inline-block;*/
-  margin: auto;
+  display: inline-block;
+  clear: both;
+  overflow: auto;
+  margin: 3px;
+  /*position: relative;*/
+  /*top: 90px;*/
   /*display: block-inline;*/
+  /*display: block;*/
+  /*position: absolute;*/
+  /*top: 90px;*/
+}
+
+div.card_treasure {
+  border-color: #65f442;
+}
+
+div.card_action {
+  border-color: #f4eb42;
+}
+
+div.card_victory {
+  border-color: #4259f4;
+}
+
+div.card_action:hover {
+ background-color: #f5f5f5;
+}
+
+div.instruction_button {
+  width: 8em;
+  display: inline-block;
+}
+
+/* Game Board */
+
+div.played_cards {
+  color: red;
+  /*height: 400px;*/
+  border: 3px solid #bbb;
+  display: block;
+  float: left;
+  width: 100%;
+  clear: left;
+}
+
+div.supply_cards {
+  color: red;
+  /*height: 400px;*/
+  border: 3px solid #bbb;
+  display: block;
+  float: right;
+  width: 100%;
+}
+
+/* Player Panel */
+
+
+div.player_panel {
+  color: red;
+  /*height: 240px;*/
+  border: 3px solid #bbb;
+  border-radius: 8px;
+  display: block;
+  clear: both;
+  /*width: 100%;*/
+  /*margin: auto;*/
+}
+
+div.player_supply {
+  display: block;
+  /*position: absolute;*/
+  /*top: 90px;*/
+  /*left: 20px;*/
+  width: 25%;
+  float: left;
+  margin-top: 3px;
+  padding-top: 3px;
+  padding-left: 3px;
+  clear: both;
+}
+
+.hand_cards {
+ display: block;
+ text-align: center;
+ width: 100%;
+ margin-top: 3px;
+ padding: 3px;
+ /*border: 3px solid #bbb;*/
+ /*clear: both;*/
+}
+
+div.player_discard {
+  display: block;
+  /*position: absolute;*/
+  /*top: 90px;*/
+  /*right: 20px;*/
+  width: 25%;
+  float: right;
+  margin-top: 3px;
+  padding-top: 3px;
+  padding-right: 100px;
+  clear: both;
 }
 
 
@@ -234,9 +333,12 @@ div.game_board {
 }
 
 div.turn_info {
+  text-align: center;
   color: red;
-  height: 220px;
-  border: 1px solid #bbb;
+  height: auto;
+  overflow: auto;
+  border: 3px solid #bbb;
+  border-radius: 8px;
   display: block;
   clear: both;
   h2 {
@@ -244,33 +346,39 @@ div.turn_info {
   }
 }
 
-div.played_cards {
+div.card_info {
   color: red;
-  height: 400px;
-  border: 1px solid #bbb;
+  /*height: 208px;*/
+  clear: both;
+  border: 3px solid #bbb;
+  border-radius: 8px;
   display: block;
   float: left;
-  width: 100%;
+  width: 40%;
+  margin-top: 3px;
+  margin-left: 3px;
+  padding: 3em;
+  text-align: center;
+  h2 {
+    color: blue;
+  }
 }
 
-div.supply_cards {
+div.game_info {
   color: red;
-  height: 400px;
-  border: 1px solid #bbb;
+  /*height: 220px;*/
+  /*border: 1px solid #bbb;*/
   display: block;
+  clear: right;
   float: right;
-  width: 100%;
+  width: 55%;
+  padding: 1em;
+  text-align: center;
+  vertical-align: middle;
+  position: relative;
+  top: 50px;
+  h2 {
+    color: blue;
+  }
 }
-
-
-div.hand {
-  color: red;
-  height: 200px;
-  border: 1px solid #bbb;
-  display: block;
-  clear: both;
-  width: 100%;
-}
-
-
 

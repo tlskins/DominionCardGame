@@ -1,26 +1,36 @@
 <% provide(:title, 'New Game') %>
-<h1>Sign up</h1>
+<h1>Create A New Game</h1>
 
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
-    <%= form_for(@game) do |f| %>
-      <%= render 'shared/error_messages' %>
 
-      <%= f.label :name %>
-      <%= f.text_field :name, class: 'form-control' %>
+    <%= form_tag "/games/addplayer" do %>
+      <% if @game_users.size < 5 %>
+        <span class = "glyphicon glyphicon-user"></span>  <%= label_tag 'player', 'Add Player (Max 5 Players)' %>
+        <%= select_tag 'player', options_from_collection_for_select( @avail_users, 'id', 'name')  %>
+      <% end %>
 
-      <%= f.label :email %>
-      <%= f.email_field :email, class: 'form-control' %>
+      <% if @game_users.any? %>
+        <% @game_users.each do |user| %>
+          <ol>
+            <%= gravatar_for user, size: 20 %>
+            <%= link_to user.name, user %>
+          </ol>
+        <% end %>
+      <% end %>
 
-      <%= f.label :password %>
-      <%= f.password_field :password, class: 'form-control' %>
-
-      <%= f.label :password_confirmation, "Confirmation" %>
-      <%= f.password_field :password_confirmation, class: 'form-control' %>
-
-      <%= f.submit "Create my account", class: "btn btn-primary" %>
+      <% if @game_users.size < 5 %>
+        <%= hidden_field_tag 'game_players', @game_players.to_s %>
+        <%= submit_tag "Add Player", class: "btn btn-primary" %>
+      <% end %>
     <% end %>
+      
+    <% if @game_users.size > 1 %>
+      <%= form_tag "/games/create" do %>
+        <%= hidden_field_tag 'game_players', @game_players.to_s %>
+        <%= submit_tag "Create Game", class: "btn btn-primary" %>
+      <% end %>
+    <% end %>
+
   </div>
 </div>
-~
-

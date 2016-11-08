@@ -1,71 +1,81 @@
 class Card < ActiveRecord::Base
-  #has_one :cardlocation
-  has_one :mapping, through: :cardlocation
+  belongs_to :cardmapping
+  belongs_to :deck
+  before_save :check_order
 
   def name
-    self.mapping.name
+    self.cardmapping.name
   end
 
   def text
-    self.mapping.text
+    self.cardmapping.text
   end
 
   def is_action
-    self.mapping.is_action
+    self.cardmapping.is_action
   end
 
   def is_attack
-    self.mapping.is_attack
+    self.cardmapping.is_attack
   end
 
   def is_reaction
-    self.mapping.is_reaction
+    self.cardmapping.is_reaction
   end
 
   def is_treasure
-    self.mapping.is_treasure
+    self.cardmapping.is_treasure
   end
 
   def is_victory
-    self.mapping.is_victory
+    self.cardmapping.is_victory
   end
 
   def treasure_amount
-    self.mapping.treasure_amount
+    self.cardmapping.treasure_amount
   end
 
   def victory_points
-    self.mapping.victory_points
+    self.cardmapping.victory_points
   end
 
   def cost
-    self.mapping.cost
+    self.cardmapping.cost
   end
 
-  # Returns the current order of this card
-  def order
-   if cardlocation
-    self.cardlocation.card_order
-   end
+  # Mark the card as selectable
+  def mark_selectable
+    update_attributes(selectable: true)
   end
 
-  # Returns the deck_id that the card is currently in
-  def deck
-    if cardlocation
-      Deck.find(cardlocation.deck_id).id
+  # Mark the card as un-selectable
+  def unmark_selectable
+    update_attributes(selectable: false)
+  end
+
+
+  # Return the div class to be used for this card for CSS purposes
+  def div_class
+    unless self.cardmapping.nil?
+      if self.cardmapping.is_action or self.cardmapping.is_attack or self.cardmapping.is_reaction
+        return 'card_action'
+      elsif self.cardmapping.is_treasure
+        return 'card_treasure'
+      elsif self.cardmapping.is_victory
+        return 'card_victory'
+      else
+        return 'card'
+      end
     end
   end
 
-  # Plays this card
-  #def play_card(gamecontroller)
-  #  self.send(name + '(gamecontroller)') if self.respond_to(name, true)
-  #end 
+    private
 
-  #private
-
-    # Village: +1 card / +2 actions
-    #def village(gamecontroller)
-    #  puts 'Village called!'
-    #end
+      # Update order to max of deck if order is null
+      def check_order
+        if card_order.nil? and deck_id
+          update_attributes(card_order: (deck.get_top_order+1) )
+        end
+      end
 
 end

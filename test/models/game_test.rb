@@ -27,6 +27,7 @@ class GameTest < ActiveSupport::TestCase
     game.save
     assert_equal 5, game.players.count
     assert_equal "In Progress", game.status
+    # Validate player list
     assert_match @user1.name, game.get_player_list
     assert_match @user2.name, game.get_player_list
     assert_match @user3.name, game.get_player_list
@@ -35,14 +36,15 @@ class GameTest < ActiveSupport::TestCase
     # Check Gamemanager
     assert game.gamemanager
     assert_equal game.players.find_by(turn_order: 1).id.to_i, game.gamemanager.player_turn.to_i
-    # Initialize decks and cards
+    # Initialize decks
     game.initialize_player_cards
-    assert @user1.players.find_by(game_id: game.id).supply
-    assert game.players.first.supply
-    assert_equal 10, @user1.players.find_by(game_id: game.id).supply.cards.size
-    assert @user1.players.find_by(game_id: game.id).supply.cards.first.order
-    # Testing assocation between Card and Cardmapping
-    #assert game.players.first.supply.cards.first.cardlocation.cardmapping.name
+    assert game.supply.id
+    assert game.trash.id
+    assert game.gamemanager.id
+    assert game.players.first.supply.id
+    assert game.players.first.hand.id
+    assert game.players.first.discard.id
+    assert @user1.players.find_by(game_id: game.id).supply.cards.first.card_order
     # End game
     game.end_game
     assert_equal "Finished", game.status

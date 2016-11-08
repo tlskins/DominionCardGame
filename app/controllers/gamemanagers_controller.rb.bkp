@@ -1,0 +1,11 @@
+class GamemanagersController < ApplicationController
+
+ def play_card
+    @card = Card.find(params[:id])
+    @game = Game.find(params[:game_id])
+    @game.gamemanager.play_card(@card)
+    redirect_to @game
+  end
+
+
+end

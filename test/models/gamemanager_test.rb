@@ -19,9 +19,9 @@ class GamemanagerTest < ActiveSupport::TestCase
   test "End Phase and End Turn" do
     assert @game.gamemanager
     # First Player
-    assert_equal 'Preaction', @game.gamemanager.phase
-    assert_equal @game.players.find_by(turn_order: 1).id.to_i, @game.gamemanager.player_turn.to_i
-    @game.gamemanager.next_phase
+    #assert_equal 'Preaction', @game.gamemanager.phase
+    #assert_equal @game.players.find_by(turn_order: 1).id.to_i, @game.gamemanager.player_turn.to_i
+    #@game.gamemanager.next_phase
     assert_equal 'Action', @game.gamemanager.phase
     assert_equal @game.players.find_by(turn_order: 1).id.to_i, @game.gamemanager.player_turn.to_i
     @game.gamemanager.next_phase
@@ -29,9 +29,9 @@ class GamemanagerTest < ActiveSupport::TestCase
     assert_equal @game.players.find_by(turn_order: 1).id.to_i, @game.gamemanager.player_turn.to_i
     @game.gamemanager.next_phase
     # Second Player
-    assert_equal 'Preaction', @game.gamemanager.phase
-    assert_equal @game.players.find_by(turn_order: 2).id.to_i, @game.gamemanager.player_turn.to_i
-    @game.gamemanager.next_phase
+    #assert_equal 'Preaction', @game.gamemanager.phase
+    #assert_equal @game.players.find_by(turn_order: 2).id.to_i, @game.gamemanager.player_turn.to_i
+    #@game.gamemanager.next_phase
     assert_equal 'Action', @game.gamemanager.phase
     assert_equal @game.players.find_by(turn_order: 2).id.to_i, @game.gamemanager.player_turn.to_i
     @game.gamemanager.next_phase
@@ -39,9 +39,9 @@ class GamemanagerTest < ActiveSupport::TestCase
     assert_equal @game.players.find_by(turn_order: 2).id.to_i, @game.gamemanager.player_turn.to_i
     @game.gamemanager.next_phase
     # Third Player
-    assert_equal 'Preaction', @game.gamemanager.phase
-    assert_equal @game.players.find_by(turn_order: 3).id.to_i, @game.gamemanager.player_turn.to_i
-    @game.gamemanager.next_phase
+    #assert_equal 'Preaction', @game.gamemanager.phase
+    #assert_equal @game.players.find_by(turn_order: 3).id.to_i, @game.gamemanager.player_turn.to_i
+    #@game.gamemanager.next_phase
     assert_equal 'Action', @game.gamemanager.phase
     assert_equal @game.players.find_by(turn_order: 3).id.to_i, @game.gamemanager.player_turn.to_i
     @game.gamemanager.next_phase
@@ -49,9 +49,9 @@ class GamemanagerTest < ActiveSupport::TestCase
     assert_equal @game.players.find_by(turn_order: 3).id.to_i, @game.gamemanager.player_turn.to_i
     @game.gamemanager.next_phase
     # Back to first player
-    assert_equal 'Preaction', @game.gamemanager.phase
-    assert_equal @game.players.find_by(turn_order: 1).id.to_i, @game.gamemanager.player_turn.to_i
-    @game.gamemanager.next_phase
+    #assert_equal 'Preaction', @game.gamemanager.phase
+    #assert_equal @game.players.find_by(turn_order: 1).id.to_i, @game.gamemanager.player_turn.to_i
+    #@game.gamemanager.next_phase
     assert_equal 'Action', @game.gamemanager.phase
     assert_equal @game.players.find_by(turn_order: 1).id.to_i, @game.gamemanager.player_turn.to_i
     @game.gamemanager.next_phase

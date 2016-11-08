@@ -1,7 +1,9 @@
 <% provide(:title, 'All Games') %>
 <h1>All Games</h1>
 
-<% if @games.nil? %>
+<%= link_to "New Game", new_user_game_path %></ br>
+
+<% if @games.empty? %>
 You are not in any games right now!
 <% else %>
   <ul class="users">

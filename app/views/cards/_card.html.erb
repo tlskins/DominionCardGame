@@ -1,5 +1,20 @@
-<div class="card" id=<%= card.id %> data-name="<%= card.cardmapping.name %>" >
+<div class=<%= card.div_class %> id=<%= card.id %> data-name="<%= card.cardmapping.name %>" >
   <b><%= card.cardmapping.name %></b><br />
+
+  <% if @game.gamemanager.phase == 'Action' and @game.gamemanager.action_phase.nil? and card.cardmapping.is_action and card.deck.status == 'Hand' and @game.gamemanager.actions > 0 and current_player(@game.id).id == @game.gamemanager.player_turn %>
+    <%= form_tag("/games/" + @game.id.to_s + "/gamemanagers/" + @game.gamemanager.id.to_s + "/play_card", remote: true) do %>
+      <%= hidden_field_tag 'card_id', card.id %>
+      <%= submit_tag "Play", class: "btn btn-primary btn-xs" %>
+    <% end %>
+  <% end %>
+
+  <% if @game.gamemanager.phase == 'Action' and @game.gamemanager.action_phase and card.selectable and current_player(@game.id).id == @game.gamemanager.player_turn %>
+    <%= form_tag("/games/" + @game.id.to_s + "/gamemanagers/" + @game.gamemanager.id.to_s + "/play_card_action", remote: true) do %>
+      <%= hidden_field_tag 'action_hash', Hash[@game.gamemanager.action_phase=>[card.id]] %>
+      <%= submit_tag @game.gamemanager.action_phase, class: "btn btn-primary btn-xs" %>
+    <% end %>
+  <% end %>
+
   <%= card.cardmapping.text %><br />
   Cost <%= card.cardmapping.cost %>
 </div>

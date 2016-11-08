@@ -2,4 +2,8 @@
   Start Date: <%= game.created_at %></br>
   <%= game.get_player_list %></br>
   <%= link_to "Continue Game", user_game_path(id: game.id) %>
+  <% if game.players.find_by(turn_order: 1).id == Player.find_by(user_id: current_user.id, game_id: game.id).id %>
+    | <%= link_to "delete", game, method: :delete,
+                                  data: { confirm: "You sure?" } %>
+  <% end %>
 </li>
