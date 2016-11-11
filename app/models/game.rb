@@ -48,6 +48,9 @@ class Game < ActiveRecord::Base
       game.gamemanager.initialize_supply_count("Cellar", 15)
       game.gamemanager.initialize_supply_count("Mine", 15)
       game.gamemanager.initialize_supply_count("Bureaucrat", 15)
+      game.gamemanager.initialize_supply_count("Smithy", 15)
+      game.gamemanager.initialize_supply_count("Woodcutter", 15)
+      game.gamemanager.initialize_supply_count("Witch", 15)
       # Returns game
       return game
     end
@@ -132,10 +135,10 @@ class Game < ActiveRecord::Base
       # Create the initial cards in each players supply
       def create_player_cards(player)
         if player.supply
-          7.times { player.supply.cards.create!( cardmapping_id: Cardmapping.get('Copper') ) }
-          3.times { player.supply.cards.create!( cardmapping_id: Cardmapping.get( 'Estate') ) }
+          7.times { player.supply.cards.create!( cardmapping_id: Cardmapping.get( 'Copper' ) ) }
+          3.times { player.supply.cards.create!( cardmapping_id: Cardmapping.get( 'Estate' ) ) }
           # Testing purposes
-          3.times { player.supply.cards.create!( cardmapping_id: Cardmapping.get( 'Bureaucrat' ) ) }
+          #3.times { player.supply.cards.create!( cardmapping_id: Cardmapping.get( 'Witch' ) ) }
           player.supply.shuffle
         end
       end

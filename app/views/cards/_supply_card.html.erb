@@ -1,6 +1,7 @@
-<div class="supply_card" id=0 data-name=name >
+<div class="supply_card" id=0 data-name=name>
 
   <b><%= name %></b><br />
+  Count <%= values ['count'] %><br />
   <% if @game.gamemanager.phase == 'Buy' and @game.gamemanager.buys > 0 and @game.gamemanager.current_treasure_balance >= values['cost'] and current_player(@game.id).id == @game.gamemanager.player_turn %>
     <%= form_tag("/games/" + @game.id.to_s + "/gamemanagers/" + @game.gamemanager.id.to_s + "/buy_card", remote: true) do %>
       <%= hidden_field_tag 'card_name', name %>
@@ -8,15 +9,13 @@
     <% end %>
   <% end %>
 
-  <% if @game.gamemanager.phase == 'Action' and @game.gamemanager.action_phase and current_player(@game.id).id == @game.gamemanager.player_turn and @selectable_supply_array and @selectable_supply_array.include?(name) %>
+  <% if @game.gamemanager.phase == 'Action' and @game.gamemanager.action_phase and current_player(@game.id).id == @game.gamemanager.player_turn and @selectable_supply_array and @selectable_supply_array.class == 'Array' and @selectable_supply_array.include?(name) %>
     <%= form_tag("/games/" + @game.id.to_s + "/gamemanagers/" + @game.gamemanager.id.to_s + "/play_card_action", remote: true) do %>
       <%= hidden_field_tag 'action_hash', Hash[@game.gamemanager.action_phase =>[name]] %>
       <%= submit_tag @game.gamemanager.action_phase, class: "btn btn-primary btn-xs" %>
     <% end %>
   <% end %>
 
-
-  Count <%= values['count'] %><br />
   Cost <%= values['cost'] %><br />
   <% unless values['treasure_amount'] or values['victory_points'] %>
     <%= values['text'] %><br />

@@ -163,11 +163,41 @@ class Gamemanager < ActiveRecord::Base
       reset_action_variables
     end
 
+    # Smithy: +3 cards
+    def Smithy(action_hash = {})
+      puts 'Smithy called!'
+      card = Card.find(played_card_id)
+      if card and phase == 'Action'
+        add_actions(-1)
+        player = game.players.find(player_turn)
+        player.draw_card(3)
+        player.add_to_played(card)
+        update_attributes(prompt: '<b>Played Smithy!</b><br />Draw 3 cards<br />')
+      end
+      reset_action_variables
+    end
+
+    # Woodcutter: +1 buy / +2 treasure
+    def Woodcutter(action_hash = {})
+      puts 'Woodcutter called!'
+      card = Card.find(played_card_id)
+      if card and phase == 'Action'
+        add_actions(-1)
+        add_buys(1)
+        add_treasures(2)
+        player = game.players.find(player_turn)
+        player.add_to_played(card)
+        update_attributes(prompt: '<b>Played Woodcutter!</b><br />+1 Buy / +2 Treasure<br />')
+      end
+      reset_action_variables
+    end
+
     # Bureaucrat: Gain a silver card at the top of your deck. Each other player with a victory card in their hand puts it on the top of their deck.
     def Bureaucrat(action_hash = {})
       puts 'Bureaucrat called!'
       card = Card.find(played_card_id)
       if card and phase == 'Action'
+        add_actions(-1)
         player = game.players.find(player_turn)
         player.add_to_played(card)
         player.supply.cards.create!( cardmapping_id: Cardmapping.get( 'Silver' ) )
@@ -182,7 +212,25 @@ class Gamemanager < ActiveRecord::Base
             end
           end
         end
-        update_attributes(actions: actions - 1, prompt: '<b>Played Bureaucrat!</b><br />Gain a silver card at the top of your deck.<br />Each other player with a victory card in their hand puts it on the top of their deck.<br />')
+        update_attributes(prompt: '<b>Played Bureaucrat!</b><br />Gain a silver card at the top of your deck.<br />Each other player with a victory card in their hand puts it on the top of their deck.<br />')
+      end
+      reset_action_variables
+    end
+
+    # Witch: +2 Cards. Each other player gains a curse card
+    def Witch(action_hash = {})
+      puts 'Witch called!'
+      card = Card.find(played_card_id)
+      if card and phase == 'Action'
+        add_actions(-1)
+        player = game.players.find(player_turn)
+        player.add_to_played(card)
+        player.draw_card(2)
+        game.players.where.not(id: player_turn).each do |p|
+          puts 'adding curse to discard for player_id = ' + p.id.to_s
+          p.discard.cards.create!( cardmapping_id: Cardmapping.get( 'Curse' ) )
+        end
+        update_attributes(prompt: '<b>Played Witch!</b><br />Draw 2 cards<br />Each other player gains a curse card.<br />')
       end
       reset_action_variables
     end
@@ -234,7 +282,7 @@ class Gamemanager < ActiveRecord::Base
           player.mark_all_hand_selectable
           update_attributes(played_card_id: card.id, value: 0, action_phase: 'Discard', prompt: '<b>Played Cellar!</b><br />+1 Action<br />Discard cards any number of cards from your hand, +1 card for each card discarded!')
         elsif action_phase == 'Discard' and card and action_hash # discarding a card
-          puts 'discard array = ' + action_hash['discard'].to_s
+          puts 'discard array = ' + action_hash['Discard'].to_s
           action_hash['Discard'].each do |card_id|
             discard_card = Card.find(card_id)
             discard_card.unmark_selectable
