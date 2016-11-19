@@ -10,7 +10,7 @@ class PlayerTest < ActiveSupport::TestCase
     @user2 = User.new(name: "Example User2", email: "user2@example.com",
                         password: "foobar", password_confirmation: "foobar")
     @user2.save
-    @game = Game.create_game_for([@user1, @user2])
+    @game = Game.create_game_for(@user1.id, [@user2])
     @game.initialize_player_cards
   end
 

@@ -12,8 +12,9 @@ class GamemanagerTest < ActiveSupport::TestCase
     @user3 = User.new(name: "Example User3", email: "user3@example.com",
                         password: "foobar", password_confirmation: "foobar")
     @user3.save
-    @game = Game.create_game_for([@user1, @user2, @user3])
+    @game = Game.create_game_for(@user1.id, [@user2, @user3])
     @game.save
+    @game.initialize_player_cards
   end
 
   test "End Phase and End Turn" do
@@ -27,6 +28,7 @@ class GamemanagerTest < ActiveSupport::TestCase
     @game.gamemanager.next_phase
     assert_equal 'Buy', @game.gamemanager.phase
     assert_equal @game.players.find_by(turn_order: 1).id.to_i, @game.gamemanager.player_turn.to_i
+    assert @game.players.first.discard
     @game.gamemanager.next_phase
     # Second Player
     #assert_equal 'Preaction', @game.gamemanager.phase

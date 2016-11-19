@@ -1,0 +1,21 @@
+  <div class="col-md-12 player_panel">
+
+      <%= render :partial => 'cards/player_deck', :locals => { :name => 'Supply', :card_count => @player.supply.cards.size } %>
+
+      <div class="col-md-8 panel panel-info">
+        <div class="panel-heading">
+          <b>player_hand</b>
+        </div>
+        <div class="panel-body">
+          <div class="hand_cards">
+            <% unless @player.hand.nil? || @player.hand.empty? %>
+              <%= render @player.hand.cards %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+
+      <%= render :partial => 'cards/player_deck', :locals => { :name => 'Discard', :card_count => @player.discard.cards.size } %>
+
+  </div>
+

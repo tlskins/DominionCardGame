@@ -1,0 +1,41 @@
+    <div class="turn_info">
+      <div class"col-md-12">
+
+        <div class="card_info">
+          <b>instructions</b>
+          <p class="text-info">
+          <% if current_player_turn?(@game.id) %>
+
+            <% if @game.gamemanager.prompt %>
+              <%=raw @game.gamemanager.prompt %>
+            <% end %>
+
+            <% if @game.gamemanager.action_phase.nil? %>
+              <%= form_tag("/games/" + @game.id.to_s + "/gamemanagers/" + @game.gamemanager.id.to_s + "/next_phase", remote: true) do %>
+                <br /><div class="instruction_button"><%= submit_tag "End " + @game.gamemanager.phase + " Phase", class: "btn btn-primary btn-xs" %></div>
+              <% end %>
+            <% else %>
+              <%= form_tag("/games/" + @game.id.to_s + "/gamemanagers/" + @game.gamemanager.id.to_s + "/end_card_action", remote: true) do %>
+                <br /><div class="instruction_button"><%= submit_tag "End " + @game.gamemanager.action_phase + " Phase", class: "btn btn-warning btn-xs" %></div>
+              <% end %>
+            <% end %>
+
+          <% else %>
+            It's not your turn!
+          <% end %>
+          </p>
+        </div>
+
+        <div class="game_info">
+          <p class="text-primary">
+          <b>Player Turn:</b> <%= @game.gamemanager.current_player_name %><br />
+          <b>Phase:</b> <%= @game.gamemanager.phase %><br />
+          <% if current_player_turn?(@game.id) %>
+            <b>Treasure:</b> <%= @game.gamemanager.current_treasure_balance %> | <b>Actions:</b> <%= @game.gamemanager.actions %> | <b>Buys:</b> <%= @game.gamemanager.buys %>
+          <% end %>
+          </p>
+        </div>
+
+      </div>
+    </div>
+

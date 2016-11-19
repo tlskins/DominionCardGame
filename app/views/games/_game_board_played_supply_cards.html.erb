@@ -1,0 +1,25 @@
+  <div class="played_supply_cards">
+    <div class="col-md-6 panel panel-info">
+      <div class="panel-heading">
+        <b>played_cards</b>
+      </div>
+      <div class="panel-body">
+        <% unless @player.played.nil? || @player.played.empty? %>
+          <%= render @player.played.cards %>
+        <% end %>
+      </div>
+    </div>
+    <div class="col-md-6 panel panel-info">
+      <div class="panel-heading">
+        <b>supply_cards</b>
+      </div>
+      <div class="panel-body">
+      <% if @supply_cards %>
+        <% @supply_cards.each do |key, val| %>
+          <%= render :partial => 'cards/supply_card', :locals => { :name => key, :values => val } %>
+        <% end %>
+      <% end %>
+      </div>
+    </div>
+  </div>
+

@@ -12,4 +12,11 @@ module PlayersHelper
     end
   end
 
+  # Returns true if it is the current player's turn right now.
+  def current_player_turn?(game_id)
+    puts 'current_player(game_id).id = ' + current_player(game_id).id.to_s
+    puts 'Game.find(game_id).gamemanager.player_turn = ' + Game.find(game_id).gamemanager.player_turn.to_s
+    return (current_player(game_id).id == Game.find(game_id).gamemanager.player_turn)
+  end
+
 end

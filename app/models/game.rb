@@ -20,12 +20,11 @@ class Game < ActiveRecord::Base
     end
 
     # Returns a new game with new created players from the array of users passed to this method
-    def Game.create_game_for(user_array)
+    def Game.create_game_for(creator_id, user_array)
       game = Game.create(status: "In Progress")
       # Randomize turn order - ensure the creator is the first player and randomize other players order
-      game_creator = user_array[0]
-      opponents_array = user_array[1..(user_array.length-1)]
-      players_array = opponents_array.shuffle.insert(0, game_creator)
+      opponents_array = user_array
+      players_array = opponents_array.shuffle.insert(0, User.find(creator_id))
       turn_order_counter = 1
       # Create players for each user
       players_array.each do |u|

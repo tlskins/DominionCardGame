@@ -21,6 +21,7 @@
 
       <% if @game_users.size < 5 %>
         <%= hidden_field_tag 'game_players', @game_players.to_s %>
+        <%= hidden_field_tag 'creator_id', @creator_id.to_s %>
         <%= submit_tag "Add Player", class: "btn btn-primary" %>
       <% end %>
     <% end %>
@@ -28,6 +29,7 @@
     <% if @game_users.size > 1 %>
       <%= form_tag "/games/create" do %>
         <%= hidden_field_tag 'game_players', @game_players.to_s %>
+        <%= hidden_field_tag 'creator_id', @creator_id.to_s %>
         <%= submit_tag "Create Game", class: "btn btn-primary" %>
       <% end %>
     <% end %>

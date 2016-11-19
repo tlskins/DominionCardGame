@@ -23,7 +23,7 @@ class GameTest < ActiveSupport::TestCase
 
   test "Create game" do
     # Create a new game
-    game = Game.create_game_for([@user1, @user2, @user3, @user4, @user5])
+    game = Game.create_game_for(@user1.id, [@user2, @user3, @user4, @user5])
     game.save
     assert_equal 5, game.players.count
     assert_equal "In Progress", game.status
