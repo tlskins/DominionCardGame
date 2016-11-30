@@ -3,17 +3,17 @@
 Web Application based on the Dominion Card Game.
 
 Versions:
-ruby 2.2.4p230 (2015-12-16 revision 53155) [x86_64-linux]
+ruby 2.2.5p319 (2016-04-26 revision 54774) [x86_64-linux]
 Rails 4.2.2
-Ubuntu
+Ubuntu 14.04
 Amazon AWS
 
 Test Suite:
+RSpec 3.5.4
 Rails 4.2.2 ActiveSupport::TestCase
-'bundle exec rake test' to run test suite
 
 Database:
 sqlite3
 db/seeds.rb
 
-
+https://gorails.com/setup/ubuntu/14.04

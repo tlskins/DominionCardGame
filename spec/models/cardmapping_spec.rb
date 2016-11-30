@@ -35,7 +35,7 @@ RSpec.describe Cardmapping, type: :model do
 
   describe "validity by duplicate attributes" do
     before :each do
-      cardmapping = create(:cardmapping)
+      cardmapping = create(:cardmapping, name: "Test Card Mapping")
     end
 
     context "duplicate name" do
