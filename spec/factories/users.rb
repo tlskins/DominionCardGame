@@ -4,13 +4,21 @@ FactoryGirl.define do
     email    { Faker::Internet.email }
     password { "foobar" }
     password_confirmation { "foobar" }
-  end
+    
+    factory :user_nil_name do
+      name nil
+    end
+    
+    factory :user_nil_email do
+      email nil
+    end
 
-  factory :timuser do
-    name     { "timothy lee" }
-    email    { "timothy@gmail.com" }
-    password { "foobar" }
-    password_confirmation { "foobar" }
+    factory :user_nil_password do
+      password nil
+    end
+   
+    factory :user_admin do
+      admin true
+    end
   end
-
 end
