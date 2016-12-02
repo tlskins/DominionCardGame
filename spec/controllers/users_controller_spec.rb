@@ -2,7 +2,6 @@ require 'rails_helper'
 
 RSpec.describe UsersController, type: :controller do
 
-
   shared_examples "public access to users" do
     describe "GET #show" do
       before :each do

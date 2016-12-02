@@ -13,6 +13,7 @@ gem 'jquery-rails', '4.0.3'
 gem 'turbolinks',   '2.3.0'
 gem 'jbuilder',     '2.2.3'
 gem 'sprockets',    '3.6.3'
+gem 'rack', '~> 1.6', '>= 1.6.5'
 gem 'sdoc',         '0.4.0', group: :doc
 
 group :development, :test do

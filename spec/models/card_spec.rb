@@ -10,6 +10,23 @@ RSpec.describe Card, type: :model do
     expect(build(:victory_card)).to be_valid
   end
 
+  subject { build(:action_card) }
+  it {  is_expected.to have_card_type "action" }
+
+  subject { build(:attack_card) }
+  it { expect(cardmapping.is_attack).to eq(true) }
+
+  subject { build(:reaction_card) }
+  it { expect(cardmapping.is_reaction).to eq(true) }
+
+  subject { build(:treasure_card) }
+  it { expect(cardmapping.is_treasure).to eq(true) }
+
+  subject { build(:victory_card) }
+  it { expect(cardmapping.is_victory).to eq(true) }
+
+
+
   it { should belong_to (:cardmapping) }
 end
 
