@@ -1,4 +1,4 @@
-<div class="supply_card" id=0 data-name=name>
+<div class="supply_card" id=0 data-name=<%= name %>>
 
   <b><%= name %></b><br />
   Count <%= values ['count'] %><br />
@@ -9,7 +9,7 @@
     <% end %>
   <% end %>
 
-  <% if @game.gamemanager.phase == 'Action' and @game.gamemanager.action_phase and current_player(@game.id).id == @game.gamemanager.player_turn and @selectable_supply_array and @selectable_supply_array.class == 'Array' and @selectable_supply_array.include?(name) %>
+  <% if @game.gamemanager.phase == 'Action' and @game.gamemanager.action_phase and current_player(@game.id).id == @game.gamemanager.player_turn and @selectable_supply_array and @selectable_supply_array.class.to_s == 'Array' and @selectable_supply_array.include?(name) %>
     <%= form_tag("/games/" + @game.id.to_s + "/gamemanagers/" + @game.gamemanager.id.to_s + "/play_card_action", remote: true) do %>
       <%= hidden_field_tag 'action_hash', Hash[@game.gamemanager.action_phase =>[name]] %>
       <%= submit_tag @game.gamemanager.action_phase, class: "btn btn-primary btn-xs" %>

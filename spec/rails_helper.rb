@@ -40,7 +40,8 @@ RSpec.configure do |config|
 
   # Include custom login methods
   config.include LoginMacros
-
+  config.include DeckMacros 
+  config.include GameMacros
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   # config.fixture_path = "#{::Rails.root}/spec/fixtures"
 

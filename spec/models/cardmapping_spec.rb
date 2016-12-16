@@ -6,6 +6,18 @@ RSpec.describe Cardmapping, type: :model do
     cardmapping = build(:cardmapping, name: "Test Card Mapping")
   end
 
+  describe "db seed tests" do
+    before :each do
+      DatabaseCleaner.clean_with(:truncation)
+      load "#{Rails.root}/db/seeds.rb"
+    end
+    it "creates seeded cards" do
+      expect(Cardmapping.find_by(name: "Village")).to be_valid
+      expect(Cardmapping.find_by(name: "Copper")).to be_valid
+      expect(Cardmapping.find_by(name: "Estate")).to be_valid
+    end
+  end
+
   it "has a valid factory" do
     expect(build(:cardmapping)).to be_valid
   end

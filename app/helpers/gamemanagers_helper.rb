@@ -1,4 +1,0 @@
-module GamemanagersHelper
-
-
-end

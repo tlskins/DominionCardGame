@@ -20,9 +20,7 @@ class GamesController < ApplicationController
 
   def addplayer
     (params[:game_players].nil? or params[:game_players].blank?) ? @game_players = params[:player].to_s : @game_players = params[:game_players].to_s + ',' + params[:player].to_s
-    puts '@game_players = ' + @game_players.to_s
     convert_game_players_array(@game_players)
-    puts '@game_users = ' + @game_users.to_s
     @avail_users = User.where.not(id: (@game_players + ',' + current_user.id.to_s).to_s.split(','))
     @creator_id = current_user.id
     render '/games/new'
@@ -42,8 +40,10 @@ class GamesController < ApplicationController
   end
 
   def destroy
-    Game.find(params[:id]).destroy
-    flash[:success] = "Game deleted"
+    if current_user.id  == Game.find(params[:id]).players.find_by(turn_order: 1).user_id
+      Game.find(params[:id]).destroy
+      flash[:success] = "Game deleted"
+    end
     redirect_to user_games_path(current_user.id)
   end
 

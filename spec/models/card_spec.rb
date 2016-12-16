@@ -10,23 +10,46 @@ RSpec.describe Card, type: :model do
     expect(build(:victory_card)).to be_valid
   end
 
-  subject { build(:action_card) }
-  it {  is_expected.to have_card_type "action" }
+  # Check card order in deck model spec
 
-  subject { build(:attack_card) }
-  it { expect(cardmapping.is_attack).to eq(true) }
+  
+  # Duplicate test to illustrate how to use expect vs is_expected
+  it "sets the card type correctly for action card factory" do
+    card = build(:action_card)
+    expect(card).to have_card_type "action"
+  end
 
-  subject { build(:reaction_card) }
-  it { expect(cardmapping.is_reaction).to eq(true) }
+  it { is_expected.to belong_to (:cardmapping) }
 
-  subject { build(:treasure_card) }
-  it { expect(cardmapping.is_treasure).to eq(true) }
+  # difference between expect(actual).to and is_expected.to ???
 
-  subject { build(:victory_card) }
-  it { expect(cardmapping.is_victory).to eq(true) }
+  # difference between should vs expect ???
+  #  should is old syntax
+  
+  context "action cards" do
+    subject { build(:action_card) }
+    it {  is_expected.to have_card_type "action" }
+  end
 
+  context "attack cards" do
+    subject { build(:attack_card) }
+    it {  is_expected.to have_card_type "attack" }
+  end
 
+  context "reaction cards" do
+    subject { build(:reaction_card) }
+    it {  is_expected.to have_card_type "reaction" }
+  end
 
-  it { should belong_to (:cardmapping) }
+  context "treasure cards" do
+    subject { build(:treasure_card) }
+    it {  is_expected.to have_card_type "treasure" }
+  end
+
+  context "victory cards" do
+    subject { build(:victory_card) }
+    it {  is_expected.to have_card_type "victory" }
+  end
+
 end
 

@@ -49,7 +49,7 @@ class Gamemanager < ActiveRecord::Base
 
   # Plays the given card
   def play_card(card)
-    puts 'begin playcard id :' + card.id.to_s
+    #puts 'begin playcard id :' + card.id.to_s
     if self.respond_to?(card.name.gsub(' ','_'), true)
       update_attributes(played_card_id: card.id)
       self.send(card.name.gsub(' ','_'), nil)
@@ -60,7 +60,7 @@ class Gamemanager < ActiveRecord::Base
 
   # Plays subsequent action card actions by passing user selections in a hash to the action's method
   def play_card_action(action_hash)
-    puts 'begin playcardaction id :' + played_card_id.to_s + ' action_hash = ' + action_hash.to_s
+    #puts 'begin playcardaction id :' + played_card_id.to_s + ' action_hash = ' + action_hash.to_s
     unless played_card_id.nil?
       card = Card.find(played_card_id)
       if self.respond_to?(card.name.gsub(' ','_'), true)

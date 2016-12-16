@@ -4,9 +4,11 @@
         <b>played_cards</b>
       </div>
       <div class="panel-body">
-        <% unless @player.played.nil? || @player.played.empty? %>
-          <%= render @player.played.cards %>
-        <% end %>
+        <div class="played_cards">
+          <% unless @player.played.nil? || @player.played.empty? %>
+            <%= render @player.played.cards %>
+          <% end %>
+        </div>
       </div>
     </div>
     <div class="col-md-6 panel panel-info">
@@ -14,11 +16,13 @@
         <b>supply_cards</b>
       </div>
       <div class="panel-body">
-      <% if @supply_cards %>
-        <% @supply_cards.each do |key, val| %>
-          <%= render :partial => 'cards/supply_card', :locals => { :name => key, :values => val } %>
+      <div class="supply_cards">
+        <% if @supply_cards %>
+          <% @supply_cards.each do |key, val| %>
+            <%= render :partial => 'cards/supply_card', :locals => { :name => key, :values => val} %>
+          <% end %>
         <% end %>
-      <% end %>
+      </div>
       </div>
     </div>
   </div>

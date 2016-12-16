@@ -1,4 +1,5 @@
 class Game < ActiveRecord::Base
+  validate :has_at_least_two_players
   has_one :gamemanager, dependent: :destroy
   has_many :players, dependent: :destroy
   has_one :supply, class_name: "Deck", foreign_key: "game_id", dependent: :destroy
@@ -121,6 +122,11 @@ class Game < ActiveRecord::Base
 
     private
 
+      # Validates that the game has 2 players before it is saved
+      def has_at_least_two_players
+        errors.add(:players, "should have at least 2 players") if  (players.nil? or players.size == 1)
+      end
+
       # Create Supply, Hand, Discard decks for a given player
       def create_player_decks(player)
         if player
@@ -137,7 +143,7 @@ class Game < ActiveRecord::Base
           7.times { player.supply.cards.create!( cardmapping_id: Cardmapping.get( 'Copper' ) ) }
           3.times { player.supply.cards.create!( cardmapping_id: Cardmapping.get( 'Estate' ) ) }
           # Testing purposes
-          #3.times { player.supply.cards.create!( cardmapping_id: Cardmapping.get( 'Witch' ) ) }
+          #3.times { player.supply.cards.create!( cardmapping_id: Cardmapping.get( 'Mine' ) ) }
           player.supply.shuffle
         end
       end

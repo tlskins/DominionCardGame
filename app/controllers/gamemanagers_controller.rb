@@ -10,28 +10,21 @@ class GamemanagersController < ApplicationController
     @supply_cards = @game.generate_supply_cards_hash
 
     respond_to do |format|
-      format.html { redirect_to game }
+      format.html { redirect_to @game }
       format.js 
     end
   end
 
   def play_card_action
-    game = Game.find(params[:id])
-    gamemanager = Gamemanager.find(params[:gamemanager_id])
-    @selectable_supply_array = gamemanager.play_card_action(eval(params[:action_hash]))
-
     @game = Game.find(params[:id])
+    @selectable_supply_array = @game.gamemanager.play_card_action(eval(params[:action_hash]))
+    #puts 'Selectable supply array = ' + @selectable_supply_array.to_s
     @player = current_player(@game.id)
     @supply_cards = @game.generate_supply_cards_hash
     #@selectable_supply_array = @selectable_supply_array unless @selectable_supply_array.nil?
-    if @selectable_supply_array
-      puts 'array is not null = ' + @selectable_supply_array.to_s
-    else
-      puts 'array is null!'
-    end
 
     respond_to do |format|
-      format.html { redirect_to game }
+      format.html { redirect_to @game }
       format.js 
     end
   end
@@ -47,7 +40,7 @@ class GamemanagersController < ApplicationController
     @supply_cards = @game.generate_supply_cards_hash
 
     respond_to do |format|
-      format.html { redirect_to game }
+      format.html { redirect_to @game }
       format.js
     end
   end
@@ -62,7 +55,7 @@ class GamemanagersController < ApplicationController
     @supply_cards = @game.generate_supply_cards_hash
 
     respond_to do |format|
-      format.html { redirect_to game }
+      format.html { redirect_to @game }
       format.js
     end
   end
@@ -77,7 +70,7 @@ class GamemanagersController < ApplicationController
     @supply_cards = @game.generate_supply_cards_hash
 
     respond_to do |format|
-      format.html { redirect_to game }
+      format.html { redirect_to @game }
       format.js
     end
   end

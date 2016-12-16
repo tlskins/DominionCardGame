@@ -2,6 +2,8 @@
 
 Web Application based on the Dominion Card Game.
 
+
+
 Versions:
 ruby 2.2.5p319 (2016-04-26 revision 54774) [x86_64-linux]
 Rails 4.2.2
